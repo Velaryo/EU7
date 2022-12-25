@@ -6,7 +6,8 @@ const fila = document.querySelector('#fila');
 const url = "http://127.0.0.1:8000/api/v2/services/";
 
 let i = 1
-
+let sharedId = {}
+console.log(fila);
 
 async function getService(){
 	const response = await fetch(url,{
@@ -30,18 +31,26 @@ function renderService(service) {
 	</td>
 	<td class="text-center">${service.name}</td>
 	<td class="text-center">${service.description}</td>
+	<td>
+		<button id="btnUpdate" onclick="getServicio_form(${service.id})" data-bs-toggle="modal" data-bs-target="#modal" class="btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i></button>
+		<button id="btnDelete" onclick="deleteServicio(${service.id})" class="btn btn-outline-danger" type="button"><i class="bi bi-trash3"></i></button>
+	</td>
 </tr>`
+
 }
 
 //* **************************** CREATE ****************************
 
+const modalTitulo = document.querySelector('#modalTitulo')
 const modalBody = document.querySelector('#modal-body');
 const form = document.querySelector("form");
 const btnSubmit = document.querySelector('#btnSubmit')
 
 function renderFormCreate(){
 	
-	modalBody.innerHTML = `
+	modalTitulo.textContent = 'Agregar un nuevo servicio'
+	form.setAttribute("id", "form formCreate")
+	form.innerHTML = `
 					
 	<label for="inputAdd_logo" class="form-label">URL del Logo</label>
 	<input name="logo" type="text" class="form-control">
@@ -51,26 +60,43 @@ function renderFormCreate(){
 
 	<label for="desc" class="form-label">Descripción del servicio</label>
 	<textarea id="desc" name="description" class="form-control" rows="3"></textarea>
-	
+	<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		<button id="btnSubmit" type="submit" class="btn btn-primary">Crear servicio</button>
+	</div>
 	`
 	
 }
+
+
 
 
 btn_modal_Insertar.onclick = function(event){
 	renderFormCreate()
 }
 
-btnSubmit.onclick = async function (event) {
+
+
+form.onsubmit = async function (event) {
 	const inputs = document.querySelectorAll("input");
 	const desc = document.querySelector('#desc')
 
 	event.preventDefault();
 	
+	if(form.getAttribute('id') === "form formCreate"){
+		createServicio(desc, inputs)
+	}else if(form.getAttribute('id') === "form formUpdate"){
+		updateServicio(sharedId.id, desc, inputs)
+		
+	}
+	
+}
+
+async function createServicio(desc, inputs){
 	const body = {
 		description: desc.value,
-	  };
-	  console.log(body);
+	};
+	  
 	inputs.forEach((input) => (body[input.name] = input.value));
 	
 	try {
@@ -83,7 +109,7 @@ btnSubmit.onclick = async function (event) {
 			body: JSON.stringify(body),
 		});
 		document.querySelector('#btnClose').click(); //simula clic - cierra modal
-		fila.innerHTML += renderService(body);
+		fila.insertAdjacentHTML('afterbegin',renderService(body)); //q agregue al inicio
 
 		Swal.fire({
 			text: "Servicio creado",
@@ -97,3 +123,122 @@ btnSubmit.onclick = async function (event) {
 	}
 }
 
+//* **************************** UPDATE ****************************
+function renderFormUpdate(){
+	
+	modalTitulo.textContent = "Actualizar registro"
+	form.setAttribute("id", "form formUpdate")
+	form.innerHTML = `
+					
+	<label for="inputAdd_logo" class="form-label">URL del Logo</label>
+	<input name="logo" type="text" class="form-control">
+
+	<label for="inputAdd_nombre" class="form-label">Nombre del servicio</label>
+	<input name="name" type="text" class="form-control">
+
+	<label for="desc" class="form-label">Descripción del servicio</label>
+	<textarea id="desc" name="description" class="form-control" rows="3"></textarea>
+	<div class="modal-footer">
+	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+		<button id="btnSubmit" type="submit" class="btn btn-primary">Agregar servicio</button>
+	</div>
+	`
+	
+}
+
+async function getServicio_form(id){
+	renderFormUpdate()
+	sharedId = {
+		id: id
+	}
+	console.log(sharedId);
+	const inputs = document.querySelectorAll("input");
+	const desc = document.querySelector('#desc')
+
+	try {
+		const response = await fetch(url + `${id}/`,{
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${user.access_token}`
+			}
+		});
+		const data = await response.json();
+		console.log(data);
+		inputs[0].value = data.logo
+		inputs[1].value = data.name
+		desc.value = data.description
+
+	} catch (error) {
+		Swal.fire({
+			text: error,
+			icon: "error",
+		});
+	}
+
+}
+
+
+async function updateServicio(id, desc, inputs){
+	const body = {
+		id: id,
+		description: desc.value,
+	};
+	inputs.forEach((input) => (body[input.name] = input.value));
+	console.log(body);
+	
+	try {
+		await fetch(url + `${id}/`,{
+			method: "PUT",
+			headers: {
+				'Content-Type': 'application/json',
+				"Authorization": `Bearer ${user.access_token}`
+			},
+			body: JSON.stringify(body)
+		});
+		document.querySelector('#btnClose').click();
+
+		Swal.fire({
+			text: "Servicio creado",
+			icon: "success",
+		});
+
+		location.reload();
+
+	} catch (error) {
+		Swal.fire({
+			text: error,
+			icon: "error",
+		});
+	}
+}
+
+
+//* **************************** DELETE ****************************
+
+async function deleteServicio(id){
+	const {value} = await Swal.fire({
+		title: "Está seguro de eliminar este registro?",
+		showDenyButton: true,
+		showCancelButton: false,
+		confirmButtonText: "Si",
+		denyButtonText: `No`,
+	  });
+
+	  if(value){
+		try {
+			const response = await fetch(url + `${id}/`,{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${user.access_token}`
+				}
+			});
+		location.href = '/servicios/index.html';
+		} catch (error) {
+			Swal.fire({
+				text: error,
+				icon: "error",
+			});
+		}
+	  }
+}

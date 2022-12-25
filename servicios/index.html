@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Servicios - Index</title>
 	<link rel="stylesheet" href="../static/bs5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -22,6 +23,7 @@
 					<th scope="col text-center w-25">Logo</th>
 					<th scope="col text-center">Servicio</th>
 					<th scope="col text-center">Descripción</th>
+					<th scope="col text-center">Acciones</th>
 				</tr>
 			</thead>
 			<tbody id="fila">
@@ -36,18 +38,15 @@
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="modalLabel">Modal title</h1>
+			  <h1 id="modalTitulo" class="modal-title fs-5" id="modalLabel">Modal title</h1>
 			  <button id="btnClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div id="modal-body" class="modal-body">
 
-				
+				<form id="form" action=""></form>
 
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				<button id="btnSubmit" type="submit" class="btn btn-primary">Crear servicio</button>
-			</div>
+			
 			
 		  </div>
 		</div>
