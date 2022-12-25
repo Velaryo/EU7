@@ -1,6 +1,11 @@
 const userLocalStorage = localStorage.getItem('user');
 const user = JSON.parse(userLocalStorage);
 
+const modalTitulo = document.querySelector('#modalTitulo')
+const modalBody = document.querySelector('#modal-body');
+const form = document.querySelector("form");
+const btnSubmit = document.querySelector('#btnSubmit')
+
 const fila = document.querySelector('#fila');
 
 const url = "http://127.0.0.1:8000/api/v2/services/";
@@ -41,15 +46,10 @@ function renderService(service) {
 
 //* **************************** CREATE ****************************
 
-const modalTitulo = document.querySelector('#modalTitulo')
-const modalBody = document.querySelector('#modal-body');
-const form = document.querySelector("form");
-const btnSubmit = document.querySelector('#btnSubmit')
 
-function renderFormCreate(){
-	
-	modalTitulo.textContent = 'Agregar un nuevo servicio'
-	form.setAttribute("id", "form formCreate")
+function renderTemplate(titulo,formId, btnTexto){
+	modalTitulo.textContent = titulo
+	form.setAttribute("id", formId)
 	form.innerHTML = `
 					
 	<label for="inputAdd_logo" class="form-label">URL del Logo</label>
@@ -62,20 +62,24 @@ function renderFormCreate(){
 	<textarea id="desc" name="description" class="form-control" rows="3"></textarea>
 	<div class="modal-footer">
 	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		<button id="btnSubmit" type="submit" class="btn btn-primary">Crear servicio</button>
+		<button id="btnSubmit" type="submit" class="btn btn-primary">${btnTexto}</button>
 	</div>
 	`
-	
 }
 
+function renderFormCreate(){
 
+	renderTemplate(
+		'Agregar un nuevo servicio',
+		'form formCreate',
+		'Crear servicio'
+	)
+}
 
 
 btn_modal_Insertar.onclick = function(event){
 	renderFormCreate()
 }
-
-
 
 form.onsubmit = async function (event) {
 	const inputs = document.querySelectorAll("input");
@@ -126,24 +130,11 @@ async function createServicio(desc, inputs){
 //* **************************** UPDATE ****************************
 function renderFormUpdate(){
 	
-	modalTitulo.textContent = "Actualizar registro"
-	form.setAttribute("id", "form formUpdate")
-	form.innerHTML = `
-					
-	<label for="inputAdd_logo" class="form-label">URL del Logo</label>
-	<input name="logo" type="text" class="form-control">
-
-	<label for="inputAdd_nombre" class="form-label">Nombre del servicio</label>
-	<input name="name" type="text" class="form-control">
-
-	<label for="desc" class="form-label">Descripción del servicio</label>
-	<textarea id="desc" name="description" class="form-control" rows="3"></textarea>
-	<div class="modal-footer">
-	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-		<button id="btnSubmit" type="submit" class="btn btn-primary">Agregar servicio</button>
-	</div>
-	`
-	
+	renderTemplate(
+		'Actualizar registro',
+		'form formUpdate',
+		'Actualizar servicio'
+	)	
 }
 
 async function getServicio_form(id){
@@ -151,9 +142,13 @@ async function getServicio_form(id){
 	sharedId = {
 		id: id
 	}
-	console.log(sharedId);
 	const inputs = document.querySelectorAll("input");
 	const desc = document.querySelector('#desc')
+
+	if(id === undefined) {
+		location.reload()
+		alert("Ha ocurrido un error. Intentelo neuvamente.")
+	};
 
 	try {
 		const response = await fetch(url + `${id}/`,{
@@ -163,7 +158,7 @@ async function getServicio_form(id){
 			}
 		});
 		const data = await response.json();
-		console.log(data);
+		
 		inputs[0].value = data.logo
 		inputs[1].value = data.name
 		desc.value = data.description
@@ -176,7 +171,6 @@ async function getServicio_form(id){
 	}
 
 }
-
 
 async function updateServicio(id, desc, inputs){
 	const body = {
@@ -223,6 +217,11 @@ async function deleteServicio(id){
 		confirmButtonText: "Si",
 		denyButtonText: `No`,
 	  });
+
+	if(id === undefined) {
+		location.reload()
+		alert("Ha ocurrido un error. Intentelo neuvamente.")
+	};
 
 	  if(value){
 		try {
