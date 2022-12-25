@@ -1,5 +1,13 @@
 const userLocalStorage = localStorage.getItem('user');
+if (userLocalStorage === null) {
+	window.location = '/login.html';
+}
 const user = JSON.parse(userLocalStorage);
+
+if (user.is_staff === "False") {
+	window.location = '/index.html';
+}
+
 
 const modalTitulo = document.querySelector('#modalTitulo')
 const modalBody = document.querySelector('#modal-body');
@@ -12,7 +20,18 @@ const url = "http://127.0.0.1:8000/api/v2/services/";
 
 let i = 1
 let sharedId = {}
-console.log(fila);
+
+// function auth(token, is_staff) {
+// 	console.log("sad");
+// 	if(!localStorage.getItem(user)){
+// 		window.location = '/login.html';
+// 		console.log("sad");
+// 	}
+// 	if(!token && !is_staff){
+// 		window.location = '/login.html';
+// 	}
+// 	console.log(token, is_staff);
+// } auth(user.access_token, user.is_staff)
 
 async function getService(){
 	const response = await fetch(url,{
@@ -72,7 +91,7 @@ function renderFormCreate(){
 	renderTemplate(
 		'Agregar un nuevo servicio',
 		'form formCreate',
-		'Crear servicio'
+		'Añadir servicio'
 	)
 }
 
@@ -133,7 +152,7 @@ function renderFormUpdate(){
 	renderTemplate(
 		'Actualizar registro',
 		'form formUpdate',
-		'Actualizar servicio'
+		'Modificar servicio'
 	)	
 }
 
@@ -147,7 +166,7 @@ async function getServicio_form(id){
 
 	if(id === undefined) {
 		location.reload()
-		alert("Ha ocurrido un error. Intentelo neuvamente.")
+		alert("Ha ocurrido un error. Intentelo nuevamente.")
 	};
 
 	try {
@@ -220,7 +239,7 @@ async function deleteServicio(id){
 
 	if(id === undefined) {
 		location.reload()
-		alert("Ha ocurrido un error. Intentelo neuvamente.")
+		alert("Ha ocurrido un error. Intentelo nuevamente.")
 	};
 
 	  if(value){

@@ -1,7 +1,10 @@
+const userLocalStorage = localStorage.getItem('user');
+if (userLocalStorage !== null) {
+	window.location = '/index.html';
+}
+
 const inputEmail = document.querySelector('#email');
 const inputPassword = document.querySelector('#password');
-
-
 
 btnLogin.onclick = async function(event){
 	event.preventDefault();
@@ -12,7 +15,6 @@ btnLogin.onclick = async function(event){
 	}
 
 	try {
-		
 		const response = await fetch("http://127.0.0.1:8000/api/users/login/",{
 			method: "POST",
 			headers: {
@@ -23,9 +25,9 @@ btnLogin.onclick = async function(event){
 		const {tokens} = await response.json();
 
 		if(tokens){
-			if(Boolean(tokens.is_staff === "True")) {
+			if(tokens.is_staff === "True") {
 				console.log("es admin");
-			}else if((tokens.is_active === "True")){
+			}else if(tokens.is_active === "True"){
 				console.log("es user");
 			}
 			const user = {
