@@ -21,18 +21,6 @@ const url = "http://127.0.0.1:8000/api/v2/services/";
 let i = 1
 let sharedId = {}
 
-// function auth(token, is_staff) {
-// 	console.log("sad");
-// 	if(!localStorage.getItem(user)){
-// 		window.location = '/login.html';
-// 		console.log("sad");
-// 	}
-// 	if(!token && !is_staff){
-// 		window.location = '/login.html';
-// 	}
-// 	console.log(token, is_staff);
-// } auth(user.access_token, user.is_staff)
-
 async function getService(){
 	const response = await fetch(url,{
 		headers: {
@@ -60,7 +48,6 @@ function renderService(service) {
 		<button id="btnDelete" onclick="deleteServicio(${service.id})" class="btn btn-outline-danger" type="button"><i class="bi bi-trash3"></i></button>
 	</td>
 </tr>`
-
 }
 
 //* **************************** CREATE ****************************
