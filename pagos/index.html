@@ -10,10 +10,8 @@
 </head>
 
 <body>
-	<button id="btn_modal_Insertar" type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modal">
-		Añadir nuevo pago
-	</button>
 
+							<!-- PAGOS -->
 	<div class="container">
 		<h1>Pagos realizados</h1>
 		<table class="table table-hover text-center">
@@ -22,10 +20,9 @@
 					<th scope="col text-center">#</th>
 					<th scope="col text-center w-25">Logo</th>
 					<th scope="col text-center">Servicio</th>
-					<th scope="col text-center">paymentDate</th>
-					<th scope="col text-center">expirationDate</th>
-					<th scope="col text-center">amount</th>
-					
+					<th scope="col text-center">Fecha de pago</th>
+					<th scope="col text-center">Fecha de expiración</th>
+					<th scope="col text-center">Monto</th>	
 				</tr>
 			</thead>
 
@@ -34,21 +31,27 @@
 		</table>
 	</div>
 
-	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-		  <div class="modal-content">
-			<div class="modal-header">
-			  <h1 id="modalTitulo" class="modal-title fs-5" id="modalLabel">Modal title</h1>
-			  <button id="btnClose" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div id="modal-body" class="modal-body">
+							<!-- VENCIDOS -->
 
-				<form id="form" action=""></form>
+	<div class="container">
+		<h1>Pagos vencidos</h1>
+		<table class="table table-hover text-center">
+			<thead>
+				<tr>
+					<th scope="col text-center">#</th>
+					<th scope="col text-center w-25">Logo</th>
+					<th scope="col text-center">Servicio</th>
+					<th scope="col text-center">Fecha de pago</th>
+					<th scope="col text-center">Monto</th>
+					<th scope="col text-center">Penalidad</th>	
+				</tr>
+			</thead>
 
-			</div>
-		  </div>
-		</div>
-	  </div>
+			<tbody id="filaVencidos"></tbody>
+
+		</table>
+	</div>
+								
 
 
 	<script src="../static/bs5/js/bootstrap.bundle.min.js"></script>

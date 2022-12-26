@@ -31,6 +31,7 @@ btnLogin.onclick = async function(event){
 				console.log("es user");
 			}
 			const user = {
+				id: tokens.id,
 				name: tokens.first_name,
 				is_staff: tokens.is_staff,
 				is_active: tokens.is_active,
