@@ -1,67 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="./static/img/favicon.ico" type="image/x-icon">
 	<title>Login</title>
 	<link rel="stylesheet" href="./static/bs5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./static/css/login.css">
 </head>
-<style>
-	html,
-body,
-.intro {
-  height: 100%;
-}
 
-@media (min-width: 550px) and (max-width: 750px) {
-  html,
-  body,
-  .intro {
-    height: 550px;
-  }
-}
-
-@media (min-width: 800px) and (max-width: 850px) {
-  html,
-  body,
-  .intro {
-    height: 550px;
-  }
-}
-
-a.link {
-  font-size: .875rem;
-  color: #6582B0;
-}
-a.link:hover, 
-a.link:active {
-  color: #426193;
-}
-</style>
 <body>
-
-	<style>
-		.login {
-			min-height: 100vh;
-		  }
-		  
-		  .bg-image {
-			background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
-			background-size: cover;
-			background-position: center;
-		  }
-		  
-		  .login-heading {
-			font-weight: 300;
-		  }
-		  
-		  .btn-login {
-			font-size: 0.9rem;
-			letter-spacing: 0.05rem;
-			padding: 0.75rem 1rem;
-		  }
-	</style>
 
 	<div class="container-fluid ps-md-0">
 		<div class="row g-0">
@@ -71,34 +20,26 @@ a.link:active {
 			  <div class="container">
 				<div class="row">
 				  <div class="col-md-9 col-lg-8 mx-auto">
-					<h3 class="login-heading mb-4">Welcome back!</h3>
+					<h3 class="login-heading mb-4">Bienvenido de nuevo!</h3>
 	  
 					<!-- Sign In Form -->
 					<form>
 					  <div class="form-floating mb-3">
 						<input id="email" type="email" class="form-control" placeholder="name@example.com">
-						<label for="floatingInput">Email address</label>
+						<label for="floatingInput">Email</label>
+						<span id="spanEmail" class="ms-2 text-danger d-none"> * El email no puede estar vacío</span>
 						
 					  </div>
 					  <div class="form-floating mb-3">
 						<input id="password" type="password" class="form-control" placeholder="Password">
 						<label for="floatingPassword">Password</label>
-					  </div>
-	  
-					  <div class="form-check mb-3">
-						<input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-						<label class="form-check-label" for="rememberPasswordCheck">
-						  Remember password
-						</label>
+						<span id="spanPass" class="ms-2 text-danger d-none"> * El password no puede estar vacío</span>
 					  </div>
 					  
 					  <div class="d-grid">
 						<button id="btnLogin" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2">
-							Sign in
+							Iniciar sesión
 						</button>
-						<div class="text-center">
-						  <a class="small" href="#">Forgot password?</a>
-						</div>
 					  </div>
 	  
 					</form>

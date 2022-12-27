@@ -6,8 +6,25 @@ if (userLocalStorage !== null) {
 const inputEmail = document.querySelector('#email');
 const inputPassword = document.querySelector('#password');
 
+const spanEmail = document.querySelector('#spanEmail');
+const spanPass = document.querySelector('#spanPass');
+
+
 btnLogin.onclick = async function(event){
 	event.preventDefault();
+	if(inputEmail.value === ""){
+		spanEmail.classList.remove('d-none');
+		if(inputPassword.value == ""){
+			spanPass.classList.remove('d-none');
+		}
+		return false;
+	}
+	if (inputPassword.value === "") {
+		spanPass.classList.remove('d-none');
+		return false;
+	}
+	
+	
 
 	body = {
 		email: inputEmail.value,

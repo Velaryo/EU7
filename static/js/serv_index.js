@@ -36,7 +36,6 @@ async function getService(){
 	data.results.forEach((service)=>{
 		fila.innerHTML += renderService(service);
 	});
-
 }
 getService();
 
@@ -57,22 +56,26 @@ function renderService(service) {
 
 //* **************************** CREATE ****************************
 
-
 function renderTemplate(titulo,formId, btnTexto){
 	modalTitulo.textContent = titulo
 	form.setAttribute("id", formId)
 	form.innerHTML = `
 					
 	<label for="inputAdd_logo" class="form-label">URL del Logo</label>
+	<span id="spanLogo" class="ms-2 text-danger d-none"> * La URL no puede estar vacío</span>
 	<input name="logo" type="text" class="form-control">
 
 	<label for="inputAdd_nombre" class="form-label">Nombre del servicio</label>
+	
+	<span id="spanNombre" class="ms-2 text-danger d-none"> * El nombre no puede estar vacío</span>
 	<input name="name" type="text" class="form-control">
 
 	<label for="desc" class="form-label">Descripción del servicio</label>
+	<span id="spanDesc" class="ms-2 text-danger d-none"> * La descripción no puede estar vacía</span>
 	<textarea id="desc" name="description" class="form-control" rows="3"></textarea>
+	
 	<div class="modal-footer">
-	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+	<button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Cancelar</button>
 		<button id="btnSubmit" type="submit" class="btn btn-primary">${btnTexto}</button>
 	</div>
 	`
@@ -93,10 +96,26 @@ btn_modal_Insertar.onclick = function(event){
 }
 
 form.onsubmit = async function (event) {
+	event.preventDefault();
 	const inputs = document.querySelectorAll("input");
 	const desc = document.querySelector('#desc')
 
-	event.preventDefault();
+	const spanLogo = document.querySelector('#spanLogo');
+	const spanNombre = document.querySelector('#spanNombre');
+	const spanDesc = document.querySelector('#spanDesc');
+
+	if(desc.value === ""){
+		spanDesc.classList.remove('d-none');
+		return false;
+	}
+	if(inputs[1].value === ""){
+		spanNombre.classList.remove('d-none');
+		return false;
+	}
+	if(inputs[0].value === ""){
+		spanLogo.classList.remove('d-none');
+		return false;
+	}
 	
 	if(form.getAttribute('id') === "form formCreate"){
 		createServicio(desc, inputs)

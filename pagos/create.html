@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,8 +37,9 @@
 		<h1>Añadir nuevo pago</h1>
 		<form action="">
 			<div class="form-group">
-				<label for="inputVencimiento">Fecha de vencimiento</label>
+				<label for="inputVencimiento">Fecha de vencimiento</label> 
 				<input name="expirationDate" type="date" pattern="yyyy-MM-dd" class="form-control" id="inputVencimiento">
+				<span id="spanFecha" class="ms-2 text-danger d-none"> * La fecha no puede estar vacía</span>
 			</div>
 			<div class="form-group">
 				<label for="selectService">Seleccionar servicio</label>
@@ -49,6 +50,7 @@
 			<div class="form-group mb-3">
 				<label for="inputMonto">Monto</label>
 				<input name="amount" type="number" class="form-control" id="inputMonto">
+				<span id="spanMonto" class="ms-2 text-danger d-none"> * El monto no puede estar vacío</span>
 			</div>
 			
 			<button id="btn_modal_Insertar" type="submit" class="btn btn-success w-100 fs-3 fw-bold">

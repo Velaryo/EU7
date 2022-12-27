@@ -14,6 +14,10 @@ const urlPayments = "http://127.0.0.1:8000/api/v2/payments/"
 const urlServices = "http://127.0.0.1:8000/api/v2/services/"
 
 const menuActivo = document.querySelector("#menuAñadirPago")
+
+const spanFecha = document.querySelector('#spanFecha');
+const spanMonto = document.querySelector('#spanMonto');
+
 function menuInicio(){
 	menuActivo.classList.add('active');
 }menuInicio()
@@ -21,6 +25,16 @@ function menuInicio(){
 form.onsubmit = async function (event) {
 	event.preventDefault();
 	fecha = getFecha();
+
+	if(inputs[0].value === ""){
+		spanFecha.classList.remove('d-none');
+		return false;
+	}
+	if(inputs[1].value === ""){
+		spanMonto.classList.remove('d-none');
+		return false;
+	}
+
 	
 	const body = {
 	service: select.value,
