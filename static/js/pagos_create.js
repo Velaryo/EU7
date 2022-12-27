@@ -13,6 +13,10 @@ const select = document.querySelector("select");
 const urlPayments = "http://127.0.0.1:8000/api/v2/payments/"
 const urlServices = "http://127.0.0.1:8000/api/v2/services/"
 
+const menuActivo = document.querySelector("#menuAñadirPago")
+function menuInicio(){
+	menuActivo.classList.add('active');
+}menuInicio()
 
 form.onsubmit = async function (event) {
 	event.preventDefault();
@@ -25,7 +29,6 @@ form.onsubmit = async function (event) {
   	};
 	inputs.forEach((input) => (body[input.name] = input.value));
 	
-	console.log(body);
 	try {
 		await fetch(urlPayments, {
 		  method: "POST",
@@ -36,9 +39,10 @@ form.onsubmit = async function (event) {
 		});
 	
 		Swal.fire({
-		  text: "Tarea creada",
+		  text: "Pago añadido",
 		  icon: "success",
 		});
+		window.location = '/index.html';
 	  } catch (error) {
 		Swal.fire({
 		  text: error,
