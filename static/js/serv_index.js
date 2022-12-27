@@ -21,6 +21,11 @@ const url = "http://127.0.0.1:8000/api/v2/services/";
 let i = 1
 let sharedId = {}
 
+const menuActivo = document.querySelector("#menuServicios")
+function menuInicio(){
+	menuActivo.classList.add('active');
+}menuInicio()
+
 async function getService(){
 	const response = await fetch(url,{
 		headers: {

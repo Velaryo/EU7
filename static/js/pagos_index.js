@@ -17,8 +17,8 @@ const urlServicios = "http://127.0.0.1:8000/api/v2/services/";
 const urlVencidos = "http://127.0.0.1:8000/api/v2/expired-payments/"
 let iPagos = 1
 let iVence = 1
-const menuActivo = document.querySelector("#menuInicio")
 
+const menuActivo = document.querySelector("#menuInicio")
 function menuInicio(){
 	menuActivo.classList.add('active');
 }menuInicio()
