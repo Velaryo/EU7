@@ -87,7 +87,7 @@ async function getExpired(url) {
 	const data = await response.json();
 	
 	for (const vence of data.results) {
-		console.log(data);
+		
 		const res_pago = await getPago(vence.pay_user);
 		const res_service = await getService(res_pago.service)
 		
