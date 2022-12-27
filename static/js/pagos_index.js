@@ -17,6 +17,11 @@ const urlServicios = "http://127.0.0.1:8000/api/v2/services/";
 const urlVencidos = "http://127.0.0.1:8000/api/v2/expired-payments/"
 let iPagos = 1
 let iVence = 1
+const menuActivo = document.querySelector("#menuInicio")
+
+function menuInicio(){
+	menuActivo.classList.add('active');
+}menuInicio()
 
 async function getPayment(url) {
 	const verMasPagos = document.querySelector('#verMasPagos');
@@ -40,8 +45,9 @@ async function getPayment(url) {
 	
 	if(data.next !== null) {
 		filaPagos.innerHTML += `
-		<button id="verMasPagos" onclick="getPayment('${data.next}')"
-		>Ver mas</button>
+		<button id="verMasPagos" onclick="getPayment('${data.next}')" class="btn btn-link w-100 mt-3 fs-5 text-white font-monospace text-decoration-none">
+			Ver mas
+		</button>
 		`;
 	}
 }

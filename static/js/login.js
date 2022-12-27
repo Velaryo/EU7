@@ -36,7 +36,8 @@ btnLogin.onclick = async function(event){
 				is_staff: tokens.is_staff,
 				is_active: tokens.is_active,
 				refresh_token: tokens.refresh,
-				access_token: tokens.access	
+				access_token: tokens.access,
+				perfil: "https://us.123rf.com/450wm/kasezo/kasezo2011/kasezo201100008/kasezo201100008.jpg"
 			}
 			localStorage.setItem('user', JSON.stringify(user));
 			
