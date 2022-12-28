@@ -16,7 +16,7 @@ const btnSubmit = document.querySelector('#btnSubmit')
 
 const fila = document.querySelector('#fila');
 
-const url = "http://127.0.0.1:8000/api/v2/services/";
+//const url = "http://127.0.0.1:8000/api/v2/services/";
 
 let i = 1
 let sharedId = {}
@@ -27,7 +27,7 @@ function menuInicio(){
 }menuInicio()
 
 async function getService(){
-	const response = await fetch(url,{
+	const response = await fetch(urlServicios,{
 		headers: {
 			"Authorization": `Bearer ${user.access_token}`
 		}
@@ -134,7 +134,7 @@ async function createServicio(desc, inputs){
 	inputs.forEach((input) => (body[input.name] = input.value));
 	
 	try {
-		await fetch(url,{
+		await fetch(urlServicios,{
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
@@ -181,7 +181,7 @@ async function getServicio_form(id){
 	};
 
 	try {
-		const response = await fetch(url + `${id}/`,{
+		const response = await fetch(urlServicios + `${id}/`,{
 			headers: {
 				"Content-Type": "application/json",
 				"Authorization": `Bearer ${user.access_token}`
@@ -211,7 +211,7 @@ async function updateServicio(id, desc, inputs){
 	console.log(body);
 	
 	try {
-		await fetch(url + `${id}/`,{
+		await fetch(urlServicios + `${id}/`,{
 			method: "PUT",
 			headers: {
 				'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ async function deleteServicio(id){
 
 	  if(value){
 		try {
-			const response = await fetch(url + `${id}/`,{
+			const response = await fetch(urlServicios + `${id}/`,{
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

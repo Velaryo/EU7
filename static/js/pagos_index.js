@@ -4,17 +4,11 @@ if (userLocalStorage === null) {
 }
 const user = JSON.parse(userLocalStorage);
 
-// if (user.is_staff === "False") {
-// 	window.location = '/index.html';
-// }
-
 const filaPagos = document.querySelector('#filaPagos');
 const filaVencidos = document.querySelector('#filaVencidos');
 
-const urlPagos = `http://127.0.0.1:8000/api/v2/payments/?user=${user.id}`;
-const urlPago_full = `http://127.0.0.1:8000/api/v2/payments/`;
-const urlServicios = "http://127.0.0.1:8000/api/v2/services/";
-const urlVencidos = "http://127.0.0.1:8000/api/v2/expired-payments/"
+const urlPagos = urlPago_full + `?user=${user.id}`;
+
 let iPagos = 1
 let iVence = 1
 

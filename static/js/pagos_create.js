@@ -10,9 +10,6 @@ const form = document.querySelector("form");
 const inputs = document.querySelectorAll("input");
 const select = document.querySelector("select");
 
-const urlPayments = "http://127.0.0.1:8000/api/v2/payments/"
-const urlServices = "http://127.0.0.1:8000/api/v2/services/"
-
 const menuActivo = document.querySelector("#menuAñadirPago")
 
 const spanFecha = document.querySelector('#spanFecha');
@@ -35,7 +32,6 @@ form.onsubmit = async function (event) {
 		return false;
 	}
 
-	
 	const body = {
 	service: select.value,
 	paymentDate: fecha,
@@ -44,7 +40,7 @@ form.onsubmit = async function (event) {
 	inputs.forEach((input) => (body[input.name] = input.value));
 	
 	try {
-		await fetch(urlPayments, {
+		await fetch(urlPago_full, {
 		  method: "POST",
 		  headers: {
 			"Content-Type": "application/json",
@@ -66,7 +62,7 @@ form.onsubmit = async function (event) {
 }
 
 async function getServices(){
-	const response = await fetch(urlServices,{
+	const response = await fetch(urlServicios,{
 		headers: {
 			"Authorization": `Bearer ${user.access_token}`
 		}

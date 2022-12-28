@@ -24,15 +24,13 @@ btnLogin.onclick = async function(event){
 		return false;
 	}
 	
-	
-
 	body = {
 		email: inputEmail.value,
 		password: inputPassword.value
 	}
 
 	try {
-		const response = await fetch("http://127.0.0.1:8000/api/users/login/",{
+		const response = await fetch(urlLogin,{
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
