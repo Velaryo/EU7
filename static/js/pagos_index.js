@@ -1,6 +1,6 @@
 const userLocalStorage = localStorage.getItem('user');
 if (userLocalStorage === null) {
-	window.location = '/login.html';
+	window.location = 'EU7/login.html';
 }
 const user = JSON.parse(userLocalStorage);
 

@@ -1,4 +1,4 @@
-const urlPri = "http://eu5-huarca-gamero-alvaro.up.railway.app/"; 
+const urlPri = "https://eu5-huarca-gamero-alvaro.up.railway.app/"; 
 
 const urlLogin = urlPri + "api/users/login/";
 
