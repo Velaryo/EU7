@@ -1,4 +1,4 @@
-const urlPri = "http://127.0.0.1:8000/";
+const urlPri = "http://eu5-huarca-gamero-alvaro.up.railway.app/"; 
 
 const urlLogin = urlPri + "api/users/login/";
 
