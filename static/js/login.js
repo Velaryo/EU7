@@ -1,6 +1,6 @@
 const userLocalStorage = localStorage.getItem('user');
 if (userLocalStorage !== null) {
-	window.location = 'EU7/index.html';
+	window.location = 'index.html';
 }
 
 const inputEmail = document.querySelector('#email');
